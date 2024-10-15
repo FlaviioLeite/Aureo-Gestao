@@ -1,0 +1,28 @@
+
+
+
+
+/* isso daqui é o menu de navegação, ta comentado o que cada coisa faz!!!!!   */
+
+
+
+header {
+  background-color: #333;
+  padding: 1rem;
+  color: white;
+  min-height: 60px; /* Ajuste se necessário */
+  position: relative; /* Isso deve ser adequado se você não estiver usando fixed */
+  z-index: 1000; /* Mantém o cabeçalho acima de outros elementos */
+}
+
+/* Estilo da área principal */
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column; /* Alinha os elementos em coluna */
+  justify-content: flex-start; /* Alinha o conteúdo ao topo */
+  background-color: #f9f9f9;
+  width: 100%;
+  padding: 20px;
+  overflow-y: auto; /* Permite rolagem quando necessário */
+}

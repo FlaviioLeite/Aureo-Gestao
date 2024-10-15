@@ -1,0 +1,15 @@
+.home {
+  text-align: center;
+  margin: 2rem auto;
+  width: 100%; /* Usar a página toda */
+}
+
+.home h2 {
+  font-size: 2rem;
+  color: #333;
+}
+
+.home p {
+  font-size: 1.2rem;
+  color: #666;
+}

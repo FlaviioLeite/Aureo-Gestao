@@ -1,36 +1,98 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import Logo from '@/assets/logo.svg'
-import './App.css'
-import { Button } from "@/components/ui/button"
-
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={Logo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <Button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </Button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './components/Home'; 
+import ProductManager from './components/ui/ProductManager'; 
+import Header from './components/ui/Header'; 
+import './styles/global.css';
+// coisas importates comentadas, pode reutilizar este codigo que da bom 
+interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  quantity: number;
+  imageUrl: string;
+  supplier: string; 
 }
 
-export default App
+const App: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [productToEdit, setProductToEdit] = useState<Product | undefined>(undefined);
+  const [nameFilter, setNameFilter] = useState<string>(''); 
+  const [supplierFilter, setSupplierFilter] = useState<string>(''); 
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc'); 
+
+  const handleSaveProduct = (product: Product) => {
+    if (productToEdit) {
+      // Atualiza um produto existente
+      setProducts(products.map((p) => (p.id === productToEdit.id ? { ...product, id: p.id } : p)));
+      setProductToEdit(undefined);
+    } else {
+      // Adiciona um novo produto
+      const newProduct = { ...product, id: products.length + 1 };
+      setProducts([...products, newProduct]);
+    }
+  };
+
+  const handleEditProduct = (product: Product) => {
+    setProductToEdit(product);
+  };
+
+  const handleDeleteProduct = (productId: number) => {
+    setProducts(products.filter((product) => product.id !== productId));
+  };
+
+  const handleNameFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNameFilter(e.target.value);
+  };
+
+  const handleSupplierFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSupplierFilter(e.target.value);
+  };
+
+  const handleSortOrderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortOrder(e.target.value as 'asc' | 'desc');
+  };
+
+  // Função para filtrar e ordenar os produtos
+  const getFilteredAndSortedProducts = () => {
+    return products
+      .filter((product) =>
+        product.name.toLowerCase().includes(nameFilter.toLowerCase())
+      )
+      .filter((product) =>
+        product.supplier.toLowerCase().includes(supplierFilter.toLowerCase())
+      )
+      .sort((a, b) =>
+        sortOrder === 'asc' ? a.price - b.price : b.price - a.price
+      );
+  };
+
+  return (
+    <Router>
+  <Header />
+  <main> {}
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/products" element={
+        <ProductManager
+          products={getFilteredAndSortedProducts()}
+          onSave={handleSaveProduct}
+          onEdit={handleEditProduct}
+          onDelete={handleDeleteProduct}
+          nameFilter={nameFilter}
+          supplierFilter={supplierFilter}
+          sortOrder={sortOrder}
+          onNameFilterChange={handleNameFilterChange}
+          onSupplierFilterChange={handleSupplierFilterChange}
+          onSortOrderChange={handleSortOrderChange}
+          productToEdit={productToEdit}
+        />
+      } />
+    </Routes>
+  </main>
+</Router>
+  );
+};
+
+export default App;
