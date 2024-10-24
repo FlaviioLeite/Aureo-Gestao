@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home'; 
 import ProductManager from './components/ui/ProductManager'; 
 import Header from './components/ui/Header'; 
-import './styles/global.css';
+
 // coisas importates comentadas, pode reutilizar este codigo que da bom 
 interface Product {
   id: number;

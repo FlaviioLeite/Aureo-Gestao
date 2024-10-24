@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import './index.css';
-import './styles/global.css';
+
+
 //provavelme nem vai precisar mudar nada aqui maximo importar alguma coisa
 const rootElement = document.getElementById('root') as HTMLElement;
 

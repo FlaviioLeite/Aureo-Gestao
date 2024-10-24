@@ -1,28 +1,51 @@
 
+ul {
+  list-style-type: none; /* Remove os marcadores */
+  margin: 0; /* Remove margens padrão */
+  padding: 0; /* Remove preenchimentos padrão */
+  display: flex; /* Alinha os itens horizontalmente */
+}
 
 
-
-/* isso daqui é o menu de navegação, ta comentado o que cada coisa faz!!!!!   */
+li {
+  margin-right: 1rem; /* Espaçamento entre os itens */
+}
 
 
 
 header {
-  background-color: #333;
-  padding: 1rem;
+  background-color: #444; /* Cor de fundo um pouco mais clara */
+  padding: 1rem 2rem; /* Adiciona mais espaço à direita e à esquerda */
   color: white;
   min-height: 60px; /* Ajuste se necessário */
   position: relative; /* Isso deve ser adequado se você não estiver usando fixed */
   z-index: 1000; /* Mantém o cabeçalho acima de outros elementos */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidade */
+  display: flex; /* Torna o cabeçalho um flex container */
+  justify-content: space-between; /* Espaça os itens do cabeçalho */
+  align-items: center; /* Centraliza os itens verticalmente */
 }
 
-/* Estilo da área principal */
-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column; /* Alinha os elementos em coluna */
-  justify-content: flex-start; /* Alinha o conteúdo ao topo */
-  background-color: #f9f9f9;
-  width: 100%;
-  padding: 20px;
-  overflow-y: auto; /* Permite rolagem quando necessário */
+
+header h1 {
+  font-family: 'Arial', sans-serif; /* Fonte moderna */
+  font-size: 1.5rem; /* Tamanho da fonte */
+  margin: 0; /* Remove margens padrão */
+}
+
+
+nav {
+  display: flex; /* Torna o nav um flex container */
+}
+
+nav a {
+  color: white; /* Cor do texto do link */
+  text-decoration: none; /* Remove o sublinhado */
+  padding: 0.5rem 1rem; /* Espaçamento interno */
+  transition: background-color 0.3s, color 0.3s; /* Animação suave nas transições */
+}
+
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Efeito ao passar o mouse */
+  color: #f9f9f9; /* Muda a cor do texto ao passar o mouse */
 }
