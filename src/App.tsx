@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home'; 
-import ProductManager from './components/ui/ProductManager'; 
-import Header from './components/ui/Header'; 
+import ProductManager from './components/ProductManager'; 
+import Header from './components/Header'; 
 
-// coisas importates comentadas, pode reutilizar este codigo que da bom 
 interface Product {
   id: number;
   name: string;
@@ -50,8 +49,8 @@ const App: React.FC = () => {
     setSupplierFilter(e.target.value);
   };
 
-  const handleSortOrderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSortOrder(e.target.value as 'asc' | 'desc');
+  const handleSortOrderChange = (value: 'asc' | 'desc') => { 
+    setSortOrder(value);
   };
 
   // Função para filtrar e ordenar os produtos
@@ -70,28 +69,31 @@ const App: React.FC = () => {
 
   return (
     <Router>
-  <Header />
-  <main> {}
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/products" element={
-        <ProductManager
-          products={getFilteredAndSortedProducts()}
-          onSave={handleSaveProduct}
-          onEdit={handleEditProduct}
-          onDelete={handleDeleteProduct}
-          nameFilter={nameFilter}
-          supplierFilter={supplierFilter}
-          sortOrder={sortOrder}
-          onNameFilterChange={handleNameFilterChange}
-          onSupplierFilterChange={handleSupplierFilterChange}
-          onSortOrderChange={handleSortOrderChange}
-          productToEdit={productToEdit}
-        />
-      } />
-    </Routes>
-  </main>
-</Router>
+      <Header />
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route 
+            path="/products" 
+            element={
+              <ProductManager
+                products={getFilteredAndSortedProducts()}
+                onSave={handleSaveProduct}
+                onEdit={handleEditProduct}
+                onDelete={handleDeleteProduct}
+                nameFilter={nameFilter}
+                supplierFilter={supplierFilter}
+                sortOrder={sortOrder}
+                onNameFilterChange={handleNameFilterChange}
+                onSupplierFilterChange={handleSupplierFilterChange}
+                onSortOrderChange={handleSortOrderChange} 
+                productToEdit={productToEdit}
+              />
+            } 
+          />
+        </Routes>
+      </main>
+    </Router>
   );
 };
 

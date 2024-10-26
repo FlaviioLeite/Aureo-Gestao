@@ -1,6 +1,11 @@
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "./ui/select"; 
+import { Textarea } from "./ui/textarea";
 import React, { useEffect, useState } from "react";
-import "../../styles/ProductManager.css";
-/*Isoo daqui é a tela de gerenciamento de produto, podem reutilizar a logica dela para as devidas telas, assim como a logicca da app.tsx, partes importantes estao comentadas o que faz!!!!*/ 
+import "../styles/ProductManager.css";
+
 interface Product {
     id: number;
     name: string;
@@ -21,7 +26,7 @@ interface ProductManagerProps {
     sortOrder: "asc" | "desc";
     onNameFilterChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onSupplierFilterChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onSortOrderChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+    onSortOrderChange: (value: "asc" | "desc") => void; 
     productToEdit?: Product | null;
 }
 
@@ -74,15 +79,13 @@ const ProductManager: React.FC<ProductManagerProps> = ({
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        // Validação: preço deve ser maior que 0 e quantidade deve ser um número inteiro positivo
         if (
             product.name &&
             product.price > 0 &&
             product.quantity > 0 &&
             Number.isInteger(product.quantity)
         ) {
-            onSave(product); // Salva ou atualiza o produto
+            onSave(product);
             setProduct({
                 id: 0,
                 name: "",
@@ -101,8 +104,8 @@ const ProductManager: React.FC<ProductManagerProps> = ({
         <div className="product-manager">
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Nome:</label>
-                    <input
+                    <Label>Nome:</Label>
+                    <Input
                         type="text"
                         name="name"
                         value={product.name}
@@ -111,16 +114,16 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                     />
                 </div>
                 <div>
-                    <label>Descrição:</label>
-                    <textarea
+                    <Label>Descrição:</Label>
+                    <Textarea
                         name="description"
                         value={product.description}
                         onChange={handleChange}
                     />
                 </div>
                 <div>
-                    <label>Preço:</label>
-                    <input
+                    <Label>Preço:</Label>
+                    <Input
                         type="number"
                         name="price"
                         value={product.price}
@@ -130,8 +133,8 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                     />
                 </div>
                 <div>
-                    <label>Quantidade:</label>
-                    <input
+                    <Label>Quantidade:</Label>
+                    <Input
                         type="number"
                         name="quantity"
                         value={product.quantity}
@@ -141,8 +144,8 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                     />
                 </div>
                 <div>
-                    <label>URL da Imagem:</label>
-                    <input
+                    <Label>URL da Imagem:</Label>
+                    <Input
                         type="text"
                         name="imageUrl"
                         value={product.imageUrl}
@@ -151,8 +154,8 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                     />
                 </div>
                 <div>
-                    <label>Fornecedor:</label>
-                    <input
+                    <Label>Fornecedor:</Label>
+                    <Input
                         type="text"
                         name="supplier"
                         value={product.supplier}
@@ -161,27 +164,32 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                         required
                     />
                 </div>
-                <button type="submit">{productToEdit ? "Atualizar" : "Salvar"}</button>
+                <Button type="submit">{productToEdit ? "Atualizar" : "Salvar"}</Button>
             </form>
 
-            {/* Filtros acima da lista de produtos */}
             <div className="filters">
-                <input
+                <Input
                     type="text"
                     placeholder="Filtrar por nome"
                     value={nameFilter}
                     onChange={onNameFilterChange}
                 />
-                <input
+                <Input
                     type="text"
                     placeholder="Filtrar por fornecedor"
                     value={supplierFilter}
                     onChange={onSupplierFilterChange}
                 />
-                <select value={sortOrder} onChange={onSortOrderChange}>
-                    <option value="asc">Ordenar por preço: Crescente</option>
-                    <option value="desc">Ordenar por preço: Decrescente</option>
-                </select>
+                <Label>Ordenar por preço:</Label>
+                <Select value={sortOrder} onValueChange={onSortOrderChange}>
+                    <SelectTrigger>
+                        <SelectValue placeholder="Selecionar ordem" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectItem value="asc">Crescente</SelectItem>
+                        <SelectItem value="desc">Decrescente</SelectItem>
+                    </SelectContent>
+                </Select>
             </div>
 
             <h2>Lista de Produtos</h2>
@@ -200,8 +208,8 @@ const ProductManager: React.FC<ProductManagerProps> = ({
                                 <img src={prod.imageUrl} alt={prod.name} style={{ maxWidth: "200px", maxHeight: "200px" }} />
                             )}
                             <div className="action-buttons">
-                                <button onClick={() => onEdit(prod)}>Editar</button>
-                                <button onClick={() => onDelete(prod.id)}>Excluir</button>
+                                <Button onClick={() => onEdit(prod)}>Editar</Button>
+                                <Button variant="destructive" onClick={() => onDelete(prod.id)}>Excluir</Button>
                             </div>
                         </li>
                     ))}
