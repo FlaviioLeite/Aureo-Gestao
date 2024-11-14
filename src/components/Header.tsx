@@ -1,7 +1,8 @@
+// src/components/Header.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/Header.css'; 
-/* tsx da header nada importante  */ 
+import '../styles/Header.css';
+
 const Header: React.FC = () => {
   return (
     <header className="header">
@@ -15,9 +16,11 @@ const Header: React.FC = () => {
             <Link to="/products" className="hover:underline">Produtos</Link>
           </li>
           <li>
-            <Link to="/clientes" className="hover:underline">Clientes</Link> 
+            <Link to="/clientes" className="hover:underline">Clientes</Link>
           </li>
-          {/* Adicione mais links conforme necessário */}
+          <li>
+            <Link to="/pedido/1/itens" className="hover:underline">Itens Pedidos</Link>
+          </li>
         </ul>
       </nav>
     </header>

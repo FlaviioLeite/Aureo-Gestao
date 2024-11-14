@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { updateCliente, obterClientePorId } from '../../services/ClientesService'; // Corrigido o caminho
+import { updateCliente, obterClientePorId } from '../../services/CleintesService'; // Corrigido o caminho
 import { Cliente } from '../../types/Cliente';
 
 const EditarCliente: React.FC<{ id: number; onSave: () => void }> = ({ id, onSave }) => {

@@ -4,6 +4,7 @@ import Home from './components/Home';
 import ProductManager from './components/ProductManager';
 import Header from './components/Header';
 import ClientesManager from './components/ui/ClientManager';
+import PedidoItens from './Pages/PedidoItens';
 
 // Interface para Produto
 interface Product {
@@ -162,6 +163,7 @@ const App: React.FC = () => {
               />
             }
           />
+           <Route path="/pedido/:pedidoId/itens" element={<PedidoItens />} />
         </Routes>
       </main>
     </Router>
