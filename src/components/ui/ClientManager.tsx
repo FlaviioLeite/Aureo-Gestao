@@ -1,35 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { Cliente } from '../../types/Cliente'; // Ajuste o caminho conforme necessário
 
-interface Cliente {
-  id: number;
-  name: string;
-  email: string;
-  phone: string;
-  cpfCnpj: string; 
-}
-
-
-interface ClientesManagerProps {
+interface ClientManagerProps {
   clientes: Cliente[];
   onSave: (cliente: Cliente) => void;
   onEdit: (cliente: Cliente) => void;
   onDelete: (clienteId: number) => void;
 }
 
-const ClientesManager: React.FC<ClientesManagerProps> = ({
+const ClientManager: React.FC<ClientManagerProps> = ({
   clientes,
   onSave,
   onEdit,
   onDelete,
 }) => {
-  // Estados locais para armazenar os campos do formulário
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [cpfCnpj, setCpfCnpj] = useState('');
   const [editingCliente, setEditingCliente] = useState<Cliente | null>(null);
 
-  // Preenche os campos ao editar um cliente existente
   useEffect(() => {
     if (editingCliente) {
       setName(editingCliente.name);
@@ -39,7 +29,6 @@ const ClientesManager: React.FC<ClientesManagerProps> = ({
     }
   }, [editingCliente]);
 
-  // Função para salvar ou atualizar um cliente
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const cliente: Cliente = {
@@ -49,15 +38,16 @@ const ClientesManager: React.FC<ClientesManagerProps> = ({
       phone,
       cpfCnpj,
     };
+
     if (editingCliente) {
       onEdit(cliente);
     } else {
       onSave(cliente);
     }
+
     resetForm();
   };
 
-  // Reseta o formulário após salvar ou cancelar a edição
   const resetForm = () => {
     setName('');
     setEmail('');
@@ -69,8 +59,6 @@ const ClientesManager: React.FC<ClientesManagerProps> = ({
   return (
     <div>
       <h2>Gerenciamento de Clientes</h2>
-
-      {/* Formulário para adicionar ou editar clientes */}
       <form onSubmit={handleSubmit}>
         <div>
           <label>Nome:</label>
@@ -81,7 +69,6 @@ const ClientesManager: React.FC<ClientesManagerProps> = ({
             required
           />
         </div>
-
         <div>
           <label>Email:</label>
           <input
@@ -91,7 +78,6 @@ const ClientesManager: React.FC<ClientesManagerProps> = ({
             required
           />
         </div>
-
         <div>
           <label>Telefone:</label>
           <input
@@ -101,7 +87,6 @@ const ClientesManager: React.FC<ClientesManagerProps> = ({
             required
           />
         </div>
-
         <div>
           <label>CPF/CNPJ:</label>
           <input
@@ -111,14 +96,12 @@ const ClientesManager: React.FC<ClientesManagerProps> = ({
             required
           />
         </div>
-
         <button type="submit">
           {editingCliente ? 'Atualizar Cliente' : 'Salvar Cliente'}
         </button>
         {editingCliente && <button onClick={resetForm}>Cancelar</button>}
       </form>
 
-      {/* Listagem de Clientes */}
       <h3>Clientes Cadastrados</h3>
       <ul>
         {clientes.map((cliente) => (
@@ -136,4 +119,4 @@ const ClientesManager: React.FC<ClientesManagerProps> = ({
   );
 };
 
-export default ClientesManager;
+export default ClientManager;

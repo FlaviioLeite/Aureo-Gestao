@@ -21,6 +21,9 @@ const Header: React.FC = () => {
           <li>
             <Link to="/pedido/1/itens" className="hover:underline">Itens Pedidos</Link>
           </li>
+          <li>
+            <Link to="/transactions" className="hover:underline">Transações</Link> {/* Link correto */}
+          </li>
         </ul>
       </nav>
     </header>

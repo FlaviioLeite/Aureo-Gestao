@@ -1,0 +1,83 @@
+.transaction-list-container {
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 0 auto;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .filter-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .filter-container input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 220px;
+    font-size: 16px;
+  }
+  
+  .filter-container button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .filter-container button:hover {
+    background-color: #0056b3;
+  }
+  
+  .transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .transaction-table th,
+  .transaction-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+  }
+  
+  .transaction-table th {
+    background-color: #f1f1f1;
+    color: #333;
+  }
+  
+  .transaction-table td {
+    background-color: #fff;
+  }
+  
+  .transaction-table tr:hover {
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+  }
+  
+  .no-transactions {
+    text-align: center;
+    font-style: italic;
+    color: #999;
+    font-size: 18px;
+    padding-top: 20px;
+  }
+  
